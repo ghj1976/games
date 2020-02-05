@@ -86,7 +86,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if g.Status == Success || g.Status == Failure {
 		txt := ""
 		if g.Status == Success {
-			txt += fmt.Sprintf("您用%d步抓住了神经猫。", g.Step)
+			txt += fmt.Sprintf("您用 %d 步抓住了神经猫。", g.Step)
 		} else {
 			txt += "你没有抓住神经猫！！"
 		}

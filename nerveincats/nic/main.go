@@ -27,7 +27,7 @@ func main() {
 
 	game, _ = nerveincats.NewGame()
 
-	if err := ebiten.Run(update, nerveincats.ScreenWidth, nerveincats.ScreenHeight, 1, "Animation (Ebiten Demo)"); err != nil {
+	if err := ebiten.Run(update, nerveincats.ScreenWidth, nerveincats.ScreenHeight, 1, "抓住神经猫"); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -47,7 +47,7 @@ func NewResult() *Result {
 	}
 	const dpi = 72
 	r.ktFont = truetype.NewFace(tt, &truetype.Options{
-		Size:    36,
+		Size:    30,
 		DPI:     dpi,
 		Hinting: font.HintingFull,
 	})
@@ -59,22 +59,28 @@ func NewResult() *Result {
 func (r *Result) Draw(screen *ebiten.Image, status GameStatus, txt string) {
 	switch status {
 	case Success:
-		text.Draw(r.ImageVictory, txt, r.ktFont, 30, 240, color.RGBA{0, 0, 205, 255})
+		w, h := r.ImageVictory.Size()
+		x := ScreenWidth/2 - float64(w)/2
+		y := ScreenHeight/2 - float64(h)*2.0/3.0
 
 		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(ScreenWidth/2, ScreenHeight/2)
-		w, h := r.ImageVictory.Size()
-		op.GeoM.Translate(-float64(w)/2, -float64(h)*2.0/3.0)
+		op.GeoM.Translate(x, y)
 		screen.DrawImage(r.ImageVictory, op)
 
+		log.Println(txt)
+		text.Draw(screen, txt, r.ktFont, int(x)+30, int(y)+240, color.RGBA{0, 0, 205, 255})
+
 	case Failure:
-		text.Draw(r.ImageFailed, txt, r.ktFont, 30, 240, color.RGBA{238, 232, 170, 255})
+		w, h := r.ImageFailed.Size()
+		x := ScreenWidth/2 - float64(w)/2
+		y := ScreenHeight/2 - float64(h)*2.0/3.0
 
 		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(ScreenWidth/2, ScreenHeight/2)
-		w, h := r.ImageFailed.Size()
-		op.GeoM.Translate(-float64(w)/2, -float64(h)*2.0/3.0)
+		op.GeoM.Translate(x, y)
 		screen.DrawImage(r.ImageFailed, op)
+
+		log.Println(txt)
+		text.Draw(screen, txt, r.ktFont, int(x)+30, int(y)+240, color.RGBA{218, 165, 32, 255})
 
 	default:
 	}
