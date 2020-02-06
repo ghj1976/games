@@ -9,7 +9,9 @@ import (
 	"math"
 
 	"github.com/ghj1976/games/nerveincats/resources"
+	"github.com/golang/freetype/truetype"
 	"github.com/hajimehoshi/ebiten"
+	"golang.org/x/image/font"
 )
 
 const (
@@ -17,6 +19,12 @@ const (
 	ScreenWidth = 640
 	// ScreenHeight 屏幕大小，高度
 	ScreenHeight = 640
+)
+
+// 全局变量
+var (
+	fontGameResult font.Face // 游戏结果显示的字体
+	fontTileInfo   font.Face // 地砖上显示提示信息的字体
 )
 
 // GameStatus 游戏状态
@@ -46,6 +54,7 @@ type Game struct {
 	replayBtn          *ReplayBtn
 	result             *Result
 	currCursorPosition string // 当前处理的点击位置点
+
 }
 
 // NewGame generates a new Game object.
@@ -71,6 +80,22 @@ func NewGame() (*Game, error) {
 	// 游戏结果提示及按钮部分
 	g.result = NewResult()
 	g.replayBtn = NewReplayBtn()
+
+	// 加载游戏需要的字体
+	tt, err := truetype.Parse(resources.FontHuaKangWaWaTi_ttc)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fontGameResult = truetype.NewFace(tt, &truetype.Options{
+		Size:    30,
+		DPI:     72,
+		Hinting: font.HintingFull,
+	})
+	fontTileInfo = truetype.NewFace(tt, &truetype.Options{
+		Size:    12,
+		DPI:     72,
+		Hinting: font.HintingFull,
+	})
 
 	return g, nil
 }

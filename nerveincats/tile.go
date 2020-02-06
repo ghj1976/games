@@ -70,6 +70,14 @@ func (t *Tile) Draw(mapImage *ebiten.Image) {
 	} else {
 		mapImage.DrawImage(tile0Image, op)
 	}
+
+	// 下面代码用于调试判断走的路径和规则是否正确，
+	// 正式使用时需要注释掉
+	// txt1 := fmt.Sprintf("%d", t.Rank)
+	// text.Draw(mapImage, txt1, fontTileInfo, int(t.X)+20, int(t.Y)+25, color.RGBA{0, 0, 205, 255})
+	// txt2 := fmt.Sprintf("%d,%d", t.Column, t.Row)
+	// text.Draw(mapImage, txt2, fontTileInfo, int(t.X)+15, int(t.Y)+40, color.RGBA{0, 0, 205, 255})
+
 }
 
 // Reset 复原到原始状态，重新玩一盘

@@ -7,17 +7,14 @@ import (
 	"log"
 
 	"github.com/ghj1976/games/nerveincats/resources"
-	"github.com/golang/freetype/truetype"
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/text"
-	"golang.org/x/image/font"
 )
 
 // Result 结果展示类
 type Result struct {
 	ImageVictory *ebiten.Image
 	ImageFailed  *ebiten.Image
-	ktFont       font.Face
 }
 
 // NewResult 初始化结果绘图需要的内容
@@ -40,18 +37,6 @@ func NewResult() *Result {
 	}
 	r.ImageFailed, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
 
-	// 加载游戏需要的字体
-	tt, err := truetype.Parse(resources.FontHuaKangWaWaTi_ttc)
-	if err != nil {
-		log.Fatal(err)
-	}
-	const dpi = 72
-	r.ktFont = truetype.NewFace(tt, &truetype.Options{
-		Size:    30,
-		DPI:     dpi,
-		Hinting: font.HintingFull,
-	})
-
 	return r
 }
 
@@ -67,8 +52,8 @@ func (r *Result) Draw(screen *ebiten.Image, status GameStatus, txt string) {
 		op.GeoM.Translate(x, y)
 		screen.DrawImage(r.ImageVictory, op)
 
-		log.Println(txt)
-		text.Draw(screen, txt, r.ktFont, int(x)+30, int(y)+240, color.RGBA{0, 0, 205, 255})
+		// log.Println(txt)
+		text.Draw(screen, txt, fontGameResult, int(x)+30, int(y)+240, color.RGBA{0, 0, 205, 255})
 
 	case Failure:
 		w, h := r.ImageFailed.Size()
@@ -79,8 +64,8 @@ func (r *Result) Draw(screen *ebiten.Image, status GameStatus, txt string) {
 		op.GeoM.Translate(x, y)
 		screen.DrawImage(r.ImageFailed, op)
 
-		log.Println(txt)
-		text.Draw(screen, txt, r.ktFont, int(x)+30, int(y)+240, color.RGBA{218, 165, 32, 255})
+		// log.Println(txt)
+		text.Draw(screen, txt, fontGameResult, int(x)+30, int(y)+240, color.RGBA{218, 165, 32, 255})
 
 	default:
 	}

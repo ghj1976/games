@@ -1,7 +1,9 @@
 package nerveincats
 
 import (
+	"fmt"
 	"image/color"
+	"log"
 	"math"
 	"math/rand"
 	"time"
@@ -38,9 +40,10 @@ func NewMap() *Map {
 	for q := -mapRadius; q <= mapRadius; q++ {
 		r1 := MaxInt(-mapRadius, -q-mapRadius)
 		r2 := MinInt(mapRadius, -q+mapRadius)
+		log.Println(fmt.Sprintf("q:%d,r1:%d,r2:%d", q, r1, r2))
 		for r := r1; r <= r2; r++ {
 			t := NewTile(q, r, false)
-			if r == r1 || r == r2 {
+			if r == r1 || r == r2 || q == mapRadius || q == -mapRadius {
 				t.IsBorder = true // 地图的边缘节点
 				t.Rank = 0        // 边缘节点不考虑 障碍物，权重都是 0
 			} else {
