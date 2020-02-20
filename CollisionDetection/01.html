@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+  注意，发生过onload事件不触发的问题，请看下面问题。
+  https://stackoverflow.com/questions/29003605/html-body-onload-is-not-working-in-chrome
+  -->
+  <meta charset="UTF-8">
+  <style type="text/css">
+    canvas {
+      background: #FAFAFA;
+    }
+  </style>
+</head>
+
+<body onload="setup()">
+  <p>碰撞检测</p>
+  <canvas id="MyCanvas" width="500" height="500"></canvas>
+
+  <script type="text/javascript">
+    //<![CDATA[ 
+    function setup() {
+      var canvas = document.getElementById('MyCanvas');
+      if (canvas.getContext) {
+        ctx = canvas.getContext('2d');
+
+        var red = {
+          x: 100,
+          y: 100,
+          width: 80,
+          height: 100
+        };
+
+        var blue = {
+          x: 160,
+          y: 180,
+          width: 100,
+          height: 130
+        };
+
+        // 碰撞检测（两行代码搞定）
+        if (
+          Math.abs(red.x - blue.x) < red.width / 2 + blue.width / 2 //横向判断
+          &&
+          Math.abs(red.y - blue.y) < red.height / 2 + blue.height / 2 //纵向判断
+        ) {
+          console.log("发生碰撞");
+        }
+
+        //rect的基准点是矩形的左上角
+        ctx.fillStyle = "red";
+        ctx.fillRect(red.x - red.width / 2, red.y - red.height / 2, red.width, red.height);
+
+        ctx.fillStyle = "blue";
+        ctx.rect(blue.x - blue.width / 2, blue.y - blue.height / 2, blue.width, blue.height);
+        ctx.fill();
+      }
+    }
+
+ //  setup();
+//]]> 
+  </script>
+</body>
+
+</html>
