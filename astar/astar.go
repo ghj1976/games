@@ -143,9 +143,9 @@ func (m *AStarMap) FindPath(source, target Point) *PathPoint {
 func (m *AStarMap) getHScore(n, target Point) int {
 	x := AbsInt(n.Col - target.Col)
 	y := AbsInt(n.Row - target.Row)
-	// return x + y
+	//// return x + y
 	return 2 * (x + y)
-	// return x*x + y*y
+	//return x*x + y*y
 }
 
 // AbsInt 取正数的绝对值
