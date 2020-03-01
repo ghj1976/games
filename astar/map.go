@@ -10,11 +10,6 @@ import (
 	"github.com/hajimehoshi/ebiten"
 )
 
-const (
-	// Size 地图的尺寸
-	Size = 50
-)
-
 var (
 	whiteSquare *ebiten.Image
 	redSquare   *ebiten.Image
@@ -37,8 +32,8 @@ func prepareImage() {
 // Draw 绘图
 func (m *AStarMap) Draw(screen *ebiten.Image) {
 	// 地图布局绘制
-	for y := 0; y < Size; y++ {
-		for x := 0; x < Size; x++ {
+	for y := 0; y < m.MapRows; y++ {
+		for x := 0; x < m.MapCols; x++ {
 			if m.nodeMap[y][x] == 0 {
 				drawNode(screen, x, y, "white")
 			}

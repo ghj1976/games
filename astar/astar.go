@@ -2,16 +2,8 @@ package main
 
 import (
 	"log"
-	"math/rand"
 	"sync"
 	"time"
-)
-
-const (
-	// MapRows 地图的尺寸， 行数
-	MapRows = 50
-	// MapCols 地图的尺寸， 列数
-	MapCols = 50
 )
 
 // Point 节点
@@ -35,38 +27,15 @@ func (pp *PathPoint) GetFScore() int {
 
 // AStarMap 演示 A* 寻路算法的类
 type AStarMap struct {
-	nodeMap [MapRows][MapCols]int // 地图 node 是 0 标示可以通行， 非零不可通行
+	nodeMap [][]int // 地图 node 是 0 标示可以通行， 非零不可通行
+	MapRows int
+	// MapCols 地图的尺寸， 列数
+	MapCols int
 
 	// 为了实时演示，把这些提取到这里，正常可以是局部变量
 	openList  *sync.Map
 	closeList *sync.Map
 	currN     *PathPoint
-}
-
-// 准备演示的数据
-func prepareData() *AStarMap {
-	amap := &AStarMap{}
-	amap.nodeMap = [50][50]int{}
-	for y := 0; y < Size; y++ {
-		for x := 0; x < Size; x++ {
-			amap.nodeMap[y][x] = 0
-		}
-	}
-
-	// 随机给 200 ~300 个点设置障碍
-	rand.Seed(time.Now().Unix())
-	for i := 0; i < 200+rand.Intn(100); i++ {
-		m := rand.Intn(Size*Size - 1)
-		y := m / Size
-		x := m % Size
-		if x == 0 && y == 0 {
-			continue // 起点位置不能设置障碍
-			// 终点可以设置障碍
-		}
-		amap.nodeMap[y][x] = 1
-	}
-
-	return amap
 }
 
 // FindPath 通过A*算法寻找一个最短路径
@@ -186,24 +155,24 @@ func (m *AStarMap) getNeighbors(n Point) []*PathPoint {
 	arr := []*PathPoint{}
 	// 左
 	ny, nx := n.Row-1, n.Col
-	if ny >= 0 && ny < MapRows && nx >= 0 && nx < MapCols && m.nodeMap[ny][nx] == 0 {
+	if ny >= 0 && ny < m.MapRows && nx >= 0 && nx < m.MapCols && m.nodeMap[ny][nx] == 0 {
 		arr = append(arr, &PathPoint{Point: Point{Col: nx, Row: ny}, Parent: nil, GScore: -1, HScore: -1})
 	}
 	// 右
 	ny, nx = n.Row+1, n.Col
-	if ny >= 0 && ny < MapRows && nx >= 0 && nx < MapCols && m.nodeMap[ny][nx] == 0 {
+	if ny >= 0 && ny < m.MapRows && nx >= 0 && nx < m.MapCols && m.nodeMap[ny][nx] == 0 {
 		arr = append(arr, &PathPoint{Point: Point{Col: nx, Row: ny}, Parent: nil, GScore: -1, HScore: -1})
 	}
 
 	// 上
 	ny, nx = n.Row, n.Col-1
-	if ny >= 0 && ny < MapRows && nx >= 0 && nx < MapCols && m.nodeMap[ny][nx] == 0 {
+	if ny >= 0 && ny < m.MapRows && nx >= 0 && nx < m.MapCols && m.nodeMap[ny][nx] == 0 {
 		arr = append(arr, &PathPoint{Point: Point{Col: nx, Row: ny}, Parent: nil, GScore: -1, HScore: -1})
 	}
 
 	// 下
 	ny, nx = n.Row, n.Col+1
-	if ny >= 0 && ny < MapRows && nx >= 0 && nx < MapCols && m.nodeMap[ny][nx] == 0 {
+	if ny >= 0 && ny < m.MapRows && nx >= 0 && nx < m.MapCols && m.nodeMap[ny][nx] == 0 {
 		arr = append(arr, &PathPoint{Point: Point{Col: nx, Row: ny}, Parent: nil, GScore: -1, HScore: -1})
 	}
 
