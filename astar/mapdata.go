@@ -37,6 +37,7 @@ func prepareData1(rows, cols int) *AStarMap {
 	return amap
 }
 
+// 导入坦克大战的地图
 func prepareDataTank90(rows, cols int) *AStarMap {
 
 	amap := &AStarMap{}

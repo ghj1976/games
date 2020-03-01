@@ -15,3 +15,9 @@
 sync.map是1.9版本带的线程安全map，相关资料可以看：
 * [Go1.9 安全map用法](https://blog.csdn.net/ChamPly/article/details/77622328)
 * [go sync.Map使用和介绍](https://blog.csdn.net/u010230794/article/details/82143179)
+
+
+## 支持不同地图的测试
+下图是坦克大战第一局的地图，从左上角到右下脚的寻路过程。
+
+![](heuristic/401.png)
