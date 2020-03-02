@@ -28,7 +28,15 @@ func (m *AStarMap) getHScore(n, target Point) int {
 
 ![](102.png)
 
+
 几乎把所有的点都过了一遍。
+
+对于明显陷阱的障碍物，把所有的点都探索了。
+
+![](111.png)
+
+![](112.png)
+
 启发函数 小于或等于实际代价
 
 ### H(n) = D * (abs ( n.x – goal.x ) + abs ( n.y – goal.y ) )
@@ -46,6 +54,10 @@ func (m *AStarMap) getHScore(n, target Point) int {
 ![](201.png)
 
 启发函数 略大于 实际代价
+
+对于明显陷阱的障碍物，没有太好的办法。
+![](211.png)
+![](212.png)
 
 ## 欧几里得距离
 欧几里得距离是指两个节点之间的直线距离，
@@ -76,6 +88,11 @@ func (m *AStarMap) getHScore(n, target Point) int {
 ![](301.png)
 
 基本是两点之间的直线。
+
+对于明显陷阱的障碍物，没有太好的办法。
+![](311.png)
+
+![](312.png)
 
 ## 参考资料
 
