@@ -1,50 +1,39 @@
-**参考到的项目**
-
-* [网页版坦克大战，布局值得学习](https://battle-city.js.org/#/choose/1) 
-* <https://github.com/shinima/battle-city>
-
-**参考项目**
 
 
+## 游戏设计参考
 
-<https://blog.csdn.net/a1275302036/article/details/54232751>
+游戏设计参考了下面两个：
 
-
-
-
-[基于JAVA实现的坦克大战游戏](https://www.write-bug.com/article/2548.html)
-
-
-[基于C#实现的坦克大战游戏的最短路](https://www.write-bug.com/article/1453.html)
-
-**演示**
-
-[html5坦克大战小游戏源码演示](https://www.51qianduan.com/article/view/6846.html)
+* 玩法、道具设置都是参考的这款游戏:《[坦克1990HD](http://news.4399.com/gonglue/tkyjjl/pingce/m/320629.html)》  
+   * [道具详解](http://news.4399.com/gonglue/tkyjjl/xinde/m/320651.html)、[坦克详解](http://news.4399.com/gonglue/tkyjjl/xinde/m/320649.html)。
+   * 如果有老版本的android，可以去后面几个地址下载: [1](http://www.yxdown.com/shouji/79952.html)、[2](http://www.mdpda.com/app/apk103803.html)、[3](http://wdj.anzhi.com/soft_2358007.html) 。
+    * 我是在[网易MuMu](http://mumu.163.com/)模拟器上分析游戏的。
+* 游戏素材、布局参考battle-city项目
+    * [源码](https://github.com/shinima/battle-city) 。
+    * 网页[演示地址](https://battle-city.js.org/) 。
 
 
 
 
-**代码**
-
-有清晰图片的
-https://github.com/search?l=Python&q=tank&type=Repositories
-
-
-<https://github.com/hjzgg/hjzgg_tank_java>
-
-
-<https://code.google.com/archive/p/boombat/>
-
-
-An open-world head-to-head tank fight with simple AI, terrain, and advanced control system in Unreal 4. (ref: BT_URC) 
-
-<https://github.com/UnrealCourse/04_BattleTank>
 
 
 
-<https://github.com/lei-cao/html5-tankwar>
-
-<https://github.com/w84death/Tanks-of-Freedom>
 
 
-<https://github.com/Wings-Fantasy/Tank>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
