@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/ghj1976/games/tank90/images"
+	"github.com/ghj1976/games/tank90/resources"
 	"github.com/ghj1976/games/tank90/tools"
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
@@ -38,8 +39,6 @@ func NewGame() (*Game, error) {
 	rand.Seed(seed)
 
 	images.InitGameIMG()
-	InitAudio()
-	InitFontFace()
 
 	g := &Game{}
 	g.count = 0
@@ -148,19 +147,19 @@ func drawReferenceLine(screen *ebiten.Image) {
 	ebitenutil.DrawLine(screen, ScreenWidth/2-112, ScreenHeight/2+72, ScreenWidth/2+112, ScreenHeight/2+72, color.White)
 	ebitenutil.DrawLine(screen, ScreenWidth/2-112, ScreenHeight/2+88, ScreenWidth/2+112, ScreenHeight/2+88, color.White)
 
-	text.Draw(screen, "y0", settingFace, ScreenWidth/2+112, ScreenHeight/2-96, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y2", settingFace, ScreenWidth/2+112, ScreenHeight/2-80, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y4", settingFace, ScreenWidth/2+112, ScreenHeight/2-64, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y6", settingFace, ScreenWidth/2+112, ScreenHeight/2-48, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y8", settingFace, ScreenWidth/2+112, ScreenHeight/2-32, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y10", settingFace, ScreenWidth/2+112, ScreenHeight/2-16, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y12", settingFace, ScreenWidth/2+112, ScreenHeight/2, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y14", settingFace, ScreenWidth/2+112, ScreenHeight/2+16, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y16", settingFace, ScreenWidth/2+112, ScreenHeight/2+32, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y18", settingFace, ScreenWidth/2+112, ScreenHeight/2+48, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y20", settingFace, ScreenWidth/2+112, ScreenHeight/2+64, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y22", settingFace, ScreenWidth/2+112, ScreenHeight/2+80, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "y24", settingFace, ScreenWidth/2+112, ScreenHeight/2+96, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y0", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-96, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y2", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-80, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y4", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-64, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y6", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-48, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y8", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-32, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y10", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2-16, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y12", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y14", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+16, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y16", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+32, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y18", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+48, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y20", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+64, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y22", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+80, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "y24", resources.GetFont("setting"), ScreenWidth/2+112, ScreenHeight/2+96, color.RGBA{0, 0, 205, 255})
 
 	ebitenutil.DrawLine(screen, ScreenWidth/2-88, ScreenHeight/2-112, ScreenWidth/2-88, ScreenHeight/2+112, color.White)
 	ebitenutil.DrawLine(screen, ScreenWidth/2-72, ScreenHeight/2-112, ScreenWidth/2-72, ScreenHeight/2+112, color.White)
@@ -175,13 +174,13 @@ func drawReferenceLine(screen *ebiten.Image) {
 	ebitenutil.DrawLine(screen, ScreenWidth/2+72, ScreenHeight/2-112, ScreenWidth/2+72, ScreenHeight/2+112, color.White)
 	ebitenutil.DrawLine(screen, ScreenWidth/2+88, ScreenHeight/2-112, ScreenWidth/2+88, ScreenHeight/2+112, color.White)
 
-	text.Draw(screen, "x0", settingFace, ScreenWidth/2-104, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x4", settingFace, ScreenWidth/2-72, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x8", settingFace, ScreenWidth/2-40, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x12", settingFace, ScreenWidth/2-10, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x16", settingFace, ScreenWidth/2+20, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x20", settingFace, ScreenWidth/2+52, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
-	text.Draw(screen, "x24", settingFace, ScreenWidth/2+88, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x0", resources.GetFont("setting"), ScreenWidth/2-104, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x4", resources.GetFont("setting"), ScreenWidth/2-72, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x8", resources.GetFont("setting"), ScreenWidth/2-40, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x12", resources.GetFont("setting"), ScreenWidth/2-10, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x16", resources.GetFont("setting"), ScreenWidth/2+20, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x20", resources.GetFont("setting"), ScreenWidth/2+52, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
+	text.Draw(screen, "x24", resources.GetFont("setting"), ScreenWidth/2+88, ScreenHeight/2+122, color.RGBA{0, 0, 205, 255})
 
 }
 

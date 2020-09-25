@@ -3,6 +3,7 @@ package tank90
 import (
 	"log"
 
+	"github.com/ghj1976/games/tank90/resources"
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/inpututil"
 )
@@ -74,6 +75,7 @@ func (u *User) Update() {
 // 音乐播放停止的逻辑在玩家这里
 func (u *User) Move(count int) {
 	// log.Printf("max tps %d", ebiten.MaxTPS())
+	movePlayer := resources.GetAudioPlayer("tankmove")
 	if !u.IsMove {
 		// 不移动了，停止播放声音
 		if movePlayer.IsPlaying() {
