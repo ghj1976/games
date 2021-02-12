@@ -5,29 +5,20 @@ import (
 	"log"
 
 	"github.com/ghj1976/games/nerveincats"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var (
 	game *nerveincats.Game
 )
 
-func update(screen *ebiten.Image) error {
-	game.Update()
-
-	if ebiten.IsDrawingSkipped() {
-		return nil
-	}
-	game.Draw(screen)
-
-	return nil
-}
-
 func main() {
 
 	game, _ = nerveincats.NewGame()
 
-	if err := ebiten.Run(update, nerveincats.ScreenWidth, nerveincats.ScreenHeight, 1, "抓住神经猫"); err != nil {
+	ebiten.SetWindowSize(nerveincats.ScreenWidth, nerveincats.ScreenHeight)
+	ebiten.SetWindowTitle("抓住神经猫")
+	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)
 	}
 }

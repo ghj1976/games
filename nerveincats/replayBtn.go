@@ -7,7 +7,7 @@ import (
 	"math"
 
 	"github.com/ghj1976/games/nerveincats/resources"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // ReplayBtn 重玩按钮处理逻辑
@@ -28,7 +28,7 @@ func NewReplayBtn() *ReplayBtn {
 		log.Println("Replay_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	btn.ImageReplay, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	btn.ImageReplay = ebiten.NewImageFromImage(img)
 
 	btn.w, btn.h = btn.ImageReplay.Size()
 	btn.x = int(math.Floor(float64(ScreenWidth/2) - float64(btn.w)/2))

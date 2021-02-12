@@ -10,7 +10,7 @@ import (
 
 	"github.com/ghj1976/games/nerveincats/resources"
 	"github.com/golang/freetype/truetype"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 	"golang.org/x/image/font"
 )
 
@@ -68,7 +68,7 @@ func NewGame() (*Game, error) {
 		log.Println(" Cat_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	catImage, _ := ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	catImage := ebiten.NewImageFromImage(img)
 
 	// 猫
 	g.NCat = NewCat(catImage)
@@ -181,6 +181,10 @@ func (g *Game) Update() error {
 	}
 
 	return nil
+}
+
+func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+	return ScreenWidth, ScreenHeight
 }
 
 // Reset 重新启动一盘游戏

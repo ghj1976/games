@@ -7,8 +7,8 @@ import (
 	"log"
 
 	"github.com/ghj1976/games/nerveincats/resources"
-	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/text"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 // Result 结果展示类
@@ -27,7 +27,7 @@ func NewResult() *Result {
 		log.Println("Victory_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	r.ImageVictory, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	r.ImageVictory = ebiten.NewImageFromImage(img)
 
 	// 失败图片
 	img, _, err = image.Decode(bytes.NewReader(resources.Failed_png))
@@ -35,7 +35,7 @@ func NewResult() *Result {
 		log.Println("Failed_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	r.ImageFailed, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	r.ImageFailed = ebiten.NewImageFromImage(img)
 
 	return r
 }

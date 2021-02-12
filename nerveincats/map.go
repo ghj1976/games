@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func init() {
@@ -199,9 +199,7 @@ func (m *Map) getNeighborNum(q, r int) int {
 
 // Draw 在地图上绘制猫的图像
 func (m *Map) Draw(screen *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
+
 	screen.Fill(color.RGBA{102, 102, 102, 255})
 
 	for _, t := range m.TileSet {

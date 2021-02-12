@@ -3,7 +3,7 @@ package nerveincats
 import (
 	"image"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Cat 神经猫
@@ -67,9 +67,6 @@ func (c *Cat) GetKey() string {
 
 // Draw 在地图上绘制猫的图像
 func (c *Cat) Draw(mapImage *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
 
 	c.count++
 	if c.count > 2147483640 {

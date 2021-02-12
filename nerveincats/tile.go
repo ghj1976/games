@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"image"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Tile 瓷砖 ，地图上每一个节点
@@ -58,9 +58,6 @@ func (t *Tile) GetKey() string {
 
 // Draw 绘图
 func (t *Tile) Draw(mapImage *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(t.X, t.Y)
