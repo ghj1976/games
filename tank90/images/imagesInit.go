@@ -6,7 +6,7 @@ import (
 	"log"
 
 	"github.com/ghj1976/games/tank90/tools"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 const (
@@ -31,7 +31,7 @@ func InitGameIMG() {
 		log.Println(" Tiles_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	tilesImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	tilesImage = ebiten.NewImageFromImage(img)
 
 	// 坦克 贴图
 	img, _, err = image.Decode(bytes.NewReader(Tanks_png))
@@ -39,7 +39,7 @@ func InitGameIMG() {
 		log.Println(" Bird_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	tanksImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	tanksImage = ebiten.NewImageFromImage(img)
 
 	// 游戏元素图片
 	img, _, err = image.Decode(bytes.NewReader(Items_png))
@@ -47,7 +47,7 @@ func InitGameIMG() {
 		log.Println(" Enemy_1_png 资源文件解析错误。")
 		log.Fatal(err)
 	}
-	itemsImage, _ = ebiten.NewImageFromImage(img, ebiten.FilterDefault)
+	itemsImage = ebiten.NewImageFromImage(img)
 
 }
 

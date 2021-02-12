@@ -3,8 +3,8 @@ package navigation
 import (
 	"image/color"
 
-	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/text"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/text"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 )
@@ -43,7 +43,7 @@ func NewLinkButton(txt string, face font.Face, x, y int, btnClicked func()) *Lin
 	lb.ltx = x - 2
 	lb.lty = y - h
 
-	lb.bgImage, _ = ebiten.NewImage(lb.width, lb.height, ebiten.FilterDefault)
+	lb.bgImage = ebiten.NewImage(lb.width, lb.height)
 	lb.bgImage.Fill(color.RGBA{135, 206, 235, 255})
 
 	return lb

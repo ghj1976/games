@@ -5,7 +5,7 @@ import (
 
 	"github.com/ghj1976/games/tank90"
 	"github.com/ghj1976/games/tank90/resources"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // GameController 全局游戏控制，页面切换
@@ -28,7 +28,7 @@ func GetGameController() *GameController {
 	resources.InitAudio()
 	resources.InitFontFace()
 
-	instance.currPage = "nav"
+	instance.currPage = "game"
 	instance.game, _ = tank90.NewGame()
 	instance.nav = NewNavigation()
 	return instance
@@ -52,4 +52,8 @@ func (gc *GameController) Draw(screen *ebiten.Image) {
 		gc.game.Draw(screen)
 	}
 
+}
+
+func (g *GameController) Layout(outsideWidth, outsideHeight int) (int, int) {
+	return tank90.ScreenWidth, tank90.ScreenHeight
 }

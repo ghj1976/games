@@ -9,9 +9,9 @@ import (
 	"github.com/ghj1976/games/tank90/images"
 	"github.com/ghj1976/games/tank90/resources"
 	"github.com/ghj1976/games/tank90/tools"
-	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/ebitenutil"
-	"github.com/hajimehoshi/ebiten/text"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 const (
@@ -54,7 +54,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{132, 132, 132, 255})
 
 	// 建立一個 728x728 的新画布,作为map区域
-	square, _ := ebiten.NewImage(208, 208, ebiten.FilterNearest)
+	square := ebiten.NewImage(208, 208)
 	square.Fill(color.Black)
 
 	// map 区域的元素绘制

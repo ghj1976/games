@@ -6,7 +6,7 @@ import (
 
 	"github.com/ghj1976/games/tank90/images"
 	"github.com/ghj1976/games/tank90/tools"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Tank 不论是敌人，还是玩家通用的坦克处理类
@@ -202,9 +202,6 @@ func (t *Tank) getTankImage() *ebiten.Image {
 
 // Draw 画坦克
 func (t *Tank) Draw(mapImage *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
 
 	// if t.TypeName == "enemy1" {
 	// 	log.Printf("enemy1 cx %d,cy %d, mx %d, my %d, toward %s", t.CX, t.CY, t.MapX, t.MapY, t.Towards)

@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/ghj1976/games/tank90/resources"
-	"github.com/hajimehoshi/ebiten"
-	"github.com/hajimehoshi/ebiten/inpututil"
+	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
 // User 玩家坦克

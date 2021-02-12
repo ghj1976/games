@@ -2,7 +2,7 @@ package tank90
 
 import (
 	"github.com/ghj1976/games/tank90/images"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Bird 总部
@@ -39,9 +39,7 @@ func (b *Bird) GetCentorPositionAndSize() (x, y, w, h int) {
 
 // Draw 画出墙
 func (b *Bird) Draw(mapImage *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
+
 	opts2 := &ebiten.DrawImageOptions{}
 	opts2.GeoM.Translate(float64(b.cx-b.width/2), float64(b.cy-b.height/2))
 	mapImage.DrawImage(images.GetBirdImage(false), opts2) // 游戏地图区域绘制

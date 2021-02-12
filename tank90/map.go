@@ -7,7 +7,7 @@ import (
 
 	"github.com/ghj1976/games/tank90/images"
 	"github.com/ghj1976/games/tank90/tools"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 /*
@@ -123,10 +123,6 @@ func (m *Map) buildTileMap() {
 
 // Draw 在地图上绘制猫的图像
 func (m *Map) Draw(screen *ebiten.Image) {
-
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
 
 	m.MyBird.Draw(screen)
 

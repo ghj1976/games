@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // ICollision 检查碰撞的接口

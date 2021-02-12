@@ -2,7 +2,7 @@ package navigation
 
 import (
 	"github.com/ghj1976/games/tank90/resources"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Navigation 功能导航

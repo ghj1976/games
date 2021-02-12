@@ -5,7 +5,7 @@ import (
 
 	"github.com/ghj1976/games/tank90/images"
 	"github.com/ghj1976/games/tank90/tools"
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Tile 地砖，地图的每一块
@@ -46,9 +46,6 @@ func (t *Tile) GetCentorPositionAndSize() (x, y, w, h int) {
 
 // Draw 画出墙
 func (t *Tile) Draw(mapImage *ebiten.Image) {
-	if ebiten.IsDrawingSkipped() {
-		return
-	}
 
 	opts2 := &ebiten.DrawImageOptions{}
 	opts2.GeoM.Translate(float64(t.cx-t.width/2), float64(t.cy-t.height/2))
@@ -61,7 +58,7 @@ func (t *Tile) Draw(mapImage *ebiten.Image) {
 // DrawDebugInfo 画出调试信息
 func DrawDebugInfo(mapImage *ebiten.Image, mapx, mapy int, colour color.Color) {
 
-	mazeImage, _ := ebiten.NewImage(images.TileSize-2, images.TileSize-2, ebiten.FilterDefault)
+	mazeImage := ebiten.NewImage(images.TileSize-2, images.TileSize-2)
 	mazeImage.Fill(colour)
 
 	opts2 := &ebiten.DrawImageOptions{}
