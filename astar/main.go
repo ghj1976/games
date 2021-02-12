@@ -4,7 +4,7 @@ import (
 	"image/color"
 	"log"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var (
@@ -17,6 +17,40 @@ var (
 	ScreenWidth  int
 	ScreenHeight int
 )
+
+type Game struct {
+}
+
+// Update 逻辑刷新
+func (g *Game) Update() error {
+	aMap.Update()
+	return nil
+}
+
+// Draw 绘图
+func (g *Game) Draw(screen *ebiten.Image) {
+
+	// if ebiten.IsDrawingSkipped() {
+	// 	return nil
+	// }
+
+	screen.Fill(color.RGBA{132, 132, 132, 255})
+	square := ebiten.NewImage(MapWidth, MapHeight)
+	square.Fill(color.Black)
+
+	aMap.Draw(square)
+
+	// 把map区域画在地图上。
+	opts := &ebiten.DrawImageOptions{}
+	opts.GeoM.Translate(float64(ScreenWidth)/2.0-float64(MapWidth)/2.0, float64(ScreenHeight)/2.0-float64(MapHeight)/2.0)
+	screen.DrawImage(square, opts) // 游戏地图区域绘制
+
+}
+
+// Layout
+func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
+	return ScreenWidth, ScreenHeight
+}
 
 func main() {
 	prepareImage()
@@ -58,7 +92,7 @@ func main() {
 	00000000000000000000001000
 	00111111111111111111111000
 	00000000000000000000000000
-	00000000000000000000000000	
+	00000000000000000000000000
 	`
 	aMap = prepareData2(rows, cols, mt)
 
@@ -68,29 +102,10 @@ func main() {
 	ScreenHeight = (MapHeight/100 + 1) * 100
 
 	go aMap.FindPath(Point{Row: 0, Col: 0}, Point{Row: rows - 1, Col: cols - 1})
-	if err := ebiten.Run(update, ScreenWidth, ScreenHeight, 1, "A*寻路算法演示"); err != nil {
+
+	ebiten.SetWindowSize(ScreenWidth*2, ScreenHeight*2)
+	ebiten.SetWindowTitle("A*寻路算法演示")
+	if err := ebiten.RunGame(&Game{}); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func update(screen *ebiten.Image) error {
-
-	aMap.Update()
-
-	if ebiten.IsDrawingSkipped() {
-		return nil
-	}
-
-	screen.Fill(color.RGBA{132, 132, 132, 255})
-	square, _ := ebiten.NewImage(MapWidth, MapHeight, ebiten.FilterNearest)
-	square.Fill(color.Black)
-
-	aMap.Draw(square)
-
-	// 把map区域画在地图上。
-	opts := &ebiten.DrawImageOptions{}
-	opts.GeoM.Translate(float64(ScreenWidth)/2.0-float64(MapWidth)/2.0, float64(ScreenHeight)/2.0-float64(MapHeight)/2.0)
-	screen.DrawImage(square, opts) // 游戏地图区域绘制
-
-	return nil
 }

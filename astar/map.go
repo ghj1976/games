@@ -7,7 +7,7 @@ package main
 import (
 	"image/color"
 
-	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var (
@@ -19,13 +19,13 @@ var (
 
 func prepareImage() {
 
-	whiteSquare, _ = ebiten.NewImage(5, 5, ebiten.FilterDefault)
+	whiteSquare = ebiten.NewImage(5, 5)
 	whiteSquare.Fill(color.White)
-	redSquare, _ = ebiten.NewImage(5, 5, ebiten.FilterDefault)
+	redSquare = ebiten.NewImage(5, 5)
 	redSquare.Fill(color.RGBA{255, 0, 255, 255})
-	greenSquare, _ = ebiten.NewImage(5, 5, ebiten.FilterDefault)
+	greenSquare = ebiten.NewImage(5, 5)
 	greenSquare.Fill(color.RGBA{60, 179, 113, 255})
-	goldSquare, _ = ebiten.NewImage(5, 5, ebiten.FilterDefault)
+	goldSquare = ebiten.NewImage(5, 5)
 	goldSquare.Fill(color.RGBA{255, 215, 0, 255})
 }
 
