@@ -1,10 +1,11 @@
 package resources
 
 import (
+	"bytes"
 	"log"
 
-	"github.com/hajimehoshi/ebiten/audio"
-	"github.com/hajimehoshi/ebiten/audio/vorbis"
+	"github.com/hajimehoshi/ebiten/v2/audio"
+	"github.com/hajimehoshi/ebiten/v2/audio/vorbis"
 )
 
 var (
@@ -24,9 +25,9 @@ func GetAudioPlayer(playerType string) *audio.Player {
 // InitAudio 初始化声音
 func InitAudio() {
 
-	audioContext, _ = audio.NewContext(44100)
+	audioContext = audio.NewContext(44100)
 
-	moveD, err := vorbis.Decode(audioContext, audio.BytesReadSeekCloser(Move_ogg))
+	moveD, err := vorbis.Decode(audioContext, bytes.NewReader(Move_ogg))
 	if err != nil {
 		log.Fatal(err)
 	}
