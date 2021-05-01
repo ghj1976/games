@@ -100,3 +100,12 @@ while(OPEN!=NULL)
 在AStar之前就有A1 A2算法，Peter Hart改进A2算法后统称这类算法A*
 估计是觉得这是A算法的升级最终版所以就叫A*
 <https://www.zhihu.com/question/29528928>
+
+
+##  go编译
+
+`
+cd /Users/guohongjun/Documents/MyCodes/mygocodes/src/github.com/ghj1976/games/astar
+GOOS=js GOARCH=wasm go build -o astar.wasm 
+
+`
