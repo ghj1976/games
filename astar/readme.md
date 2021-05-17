@@ -109,3 +109,7 @@ cd /Users/guohongjun/Documents/MyCodes/mygocodes/src/github.com/ghj1976/games/as
 GOOS=js GOARCH=wasm go build -o astar.wasm 
 
 `
+
+可选内容
+地图类型： 坦克大战、随机地图、U型地图
+A*寻路算法H值算法： x + y 、 2 * (x + y)、 x*x + y*y

@@ -4,26 +4,25 @@ import (
 	"image/color"
 	"log"
 
+	"github.com/blizzy78/ebitenui"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var (
-	aMap *AStarMap
-)
-
-var (
-	MapWidth     int
-	MapHeight    int
-	ScreenWidth  int
-	ScreenHeight int
+	ScreenWidth, ScreenHeight       int
+	CurrDemoMapType, CurrHScoreType int
+	CurrGame                        *Game
 )
 
 type Game struct {
+	aMap      *AStarMap    // 游戏区域，地图区域
+	controlUI *ebitenui.UI // 控制菜单区域
 }
 
 // Update 逻辑刷新
 func (g *Game) Update() error {
-	aMap.Update()
+	g.aMap.Update()
+	g.controlUI.Update()
 	return nil
 }
 
@@ -34,78 +33,57 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	// 	return nil
 	// }
 
+	// 整体背景颜色
 	screen.Fill(color.RGBA{132, 132, 132, 255})
-	square := ebiten.NewImage(MapWidth, MapHeight)
+
+	// map背景颜色
+	square := ebiten.NewImage(g.aMap.MapWidth, g.aMap.MapHeight)
 	square.Fill(color.Black)
-
-	aMap.Draw(square)
-
-	// 把map区域画在地图上。
+	g.aMap.Draw(square)
 	opts := &ebiten.DrawImageOptions{}
-	opts.GeoM.Translate(float64(ScreenWidth)/2.0-float64(MapWidth)/2.0, float64(ScreenHeight)/2.0-float64(MapHeight)/2.0)
+	opts.GeoM.Translate(float64(ScreenWidth)-float64(g.aMap.MapWidth)-10.0, float64(ScreenHeight)/2.0-float64(g.aMap.MapHeight)/2.0)
+	// 把map区域画在地图上。
 	screen.DrawImage(square, opts) // 游戏地图区域绘制
 
+	g.controlUI.Draw(screen)
 }
 
 // Layout
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return ScreenWidth, ScreenHeight
+	// return ScreenWidth, ScreenHeight
+	return outsideWidth, outsideHeight
 }
 
 func main() {
-	prepareImage()
+	CurrDemoMapType = 1
+	CurrHScoreType = 2
+	prepareGameImage()
+	CurrGame = &Game{}
+	CurrGame.aMap = Prepare(CurrDemoMapType, CurrHScoreType)
 
-	// 随机地图
-	// rows, cols := 50, 50
-	// aMap = prepareData1(rows, cols)
+	// 控制界面
+	ui, closeUI, err := createUI()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("100")
+	CurrGame.controlUI = ui
+	defer closeUI()
 
-	// 坦克大战的地图
-	// rows, cols := 26, 26
-	// mt := "0000000000000000000000000000000000000000000000000000001100110011001100110011000011001100110011001100110000110011001000010011001100001100110010000100110011000011001100115511001100110000110011001155110011001100001100110011001100110011000011001100000000001100110000110011000000000011001100000000000011001100000000000000000000110011000000000011001111000000000011110011550011110000000000111100550000000000110011000000000000000000001111110000000000001100110011111100110011000011001100110011001100110000110011001100110011001100001100110011001100110011000011001100000000001100110000110011000000000011001100001100110001111000110011000000000000019910000000000000000000000199100000000000"
-	// aMap = prepareData2(rows, cols, mt)
+	// 开始游戏
+	CurrGame.aMap.Reset(CurrDemoMapType, CurrHScoreType)
 
-	// U 型地图
-	rows, cols := 26, 26
-	mt := `
-	00000000000000000000000000
-	00000000000000000000000000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00000000000000000000001000
-	00111111111111111111111000
-	00000000000000000000000000
-	00000000000000000000000000
-	`
-	aMap = prepareData2(rows, cols, mt)
+	// 窗口大小
+	// ScreenWidth = (g.aMap.MapWidth/100+1)*100 + 300
+	// ScreenHeight = (g.aMap.MapHeight/100+1)*100 + 30
+	ScreenWidth = 600
+	ScreenHeight = 400
 
-	MapWidth = 2 + (5+2)*cols
-	MapHeight = 2 + (5+2)*rows
-	ScreenWidth = (MapWidth/100 + 1) * 100
-	ScreenHeight = (MapHeight/100 + 1) * 100
-
-	go aMap.FindPath(Point{Row: 0, Col: 0}, Point{Row: rows - 1, Col: cols - 1})
-
-	ebiten.SetWindowSize(ScreenWidth*2, ScreenHeight*2)
+	ebiten.SetWindowSize(ScreenWidth, ScreenHeight)
 	ebiten.SetWindowTitle("A*寻路算法演示")
-	if err := ebiten.RunGame(&Game{}); err != nil {
+	ebiten.SetScreenClearedEveryFrame(false)
+
+	if err := ebiten.RunGame(CurrGame); err != nil {
 		log.Fatal(err)
 	}
 }

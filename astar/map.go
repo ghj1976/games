@@ -17,7 +17,7 @@ var (
 	goldSquare  *ebiten.Image
 )
 
-func prepareImage() {
+func prepareGameImage() {
 
 	whiteSquare = ebiten.NewImage(5, 5)
 	whiteSquare.Fill(color.White)

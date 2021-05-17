@@ -33,14 +33,26 @@ type AStarMap struct {
 	MapCols int
 
 	// 为了实时演示，把这些提取到这里，正常可以是局部变量
-	openList  *sync.Map
-	closeList *sync.Map
-	currN     *PathPoint
+	openList            *sync.Map
+	closeList           *sync.Map
+	currN               *PathPoint
+	HScoreType          int           // 计算H值的方法类型
+	DemoMapType         int           // 演示地图类型
+	StopCh              chan struct{} // 结束A*计算的chan
+	MapWidth, MapHeight int
 }
 
 // FindPath 通过A*算法寻找一个最短路径
 // source, target 起点 和 终点
-func (m *AStarMap) FindPath(source, target Point) *PathPoint {
+func (m *AStarMap) FindPath(stopCh <-chan struct{}, source, target Point) *PathPoint {
+	// log.Println("begin FindPath")
+	// if m.GoRunStatus == "stop" {
+	// 	return nil
+	// } else if m.GoRunStatus == "running" {
+	// 	return nil
+	// }
+	// m.GoRunStatus = "running"
+
 	m.openList = &sync.Map{}
 	m.closeList = &sync.Map{}
 
@@ -52,69 +64,86 @@ func (m *AStarMap) FindPath(source, target Point) *PathPoint {
 	m.openList.Store(source, sourcePathPoint)
 
 	for {
-		// 从OPEN表中取f(n)最小的节点n;
-		n := getMinFScore(m.openList)
-		if n == nil { // open 列表没有数据， 则退出
-			break
-		}
+		select {
+		case <-stopCh: // 是否要退出计算
+			log.Println("Recv stop signal")
+			return nil
+		default: // 计算过程
+			{
 
-		m.currN = n // 实时显示用到， 跟计算没关系
-		log.Printf("curr: %d,%d", n.Col, n.Row)
-		time.Sleep(250 * time.Millisecond)
+				// 从OPEN表中取f(n)最小的节点n;
+				n := getMinFScore(m.openList)
+				if n == nil { // open 列表没有数据， 则退出
+					log.Println("没有要计算的了！")
+					return nil
 
-		if n.Point == target { // 找到目标节点了
-			return n
-		}
-
-		// 遍历 n 节点的每个临近节点
-		for _, x := range m.getNeighbors(n.Point) {
-			// 计算f(X);
-			x.HScore = m.getHScore(x.Point, target)
-			x.GScore = n.GScore + 1
-
-			ox, oexist := m.openList.Load(x.Point)
-			if oexist { // X in OPEN
-				if x.GetFScore() < ox.(*PathPoint).GetFScore() {
-					// Open 中只存最小 F 值的信息。
-					// 如果有多条路都可以到达 x 节点， 只存最小的那条
-					x.Parent = n
-					m.openList.Store(x.Point, x)
 				}
+
+				m.currN = n // 实时显示用到， 跟计算没关系
+				log.Printf("curr: %d,%d", n.Col, n.Row)
+				time.Sleep(250 * time.Millisecond)
+
+				if n.Point == target { // 找到目标节点了
+					log.Println("完成计算，找到目标节点！")
+					return n
+				}
+
+				// 遍历 n 节点的每个临近节点
+				for _, x := range m.getNeighbors(n.Point) {
+					// 计算f(X);
+					x.HScore = m.getHScore(x.Point, target)
+					x.GScore = n.GScore + 1
+
+					ox, oexist := m.openList.Load(x.Point)
+					if oexist { // X in OPEN
+						if x.GetFScore() < ox.(*PathPoint).GetFScore() {
+							// Open 中只存最小 F 值的信息。
+							// 如果有多条路都可以到达 x 节点， 只存最小的那条
+							x.Parent = n
+							m.openList.Store(x.Point, x)
+						}
+					}
+
+					_, cexist := m.closeList.Load(x.Point)
+					if cexist { // X in CLOSE
+						// 已经不用处理了， 继续下一个
+						continue
+					}
+
+					if !oexist && !cexist { // X not in both
+						// 把n设置为X的父亲
+						x.Parent = n
+						// 求f(X); 循环进入时已经处理了，这里不用处理
+						// 并将X插入OPEN表中;//还没有排序
+						m.openList.Store(x.Point, x)
+
+					}
+
+				}
+				//  将n节点插入CLOSE表中;
+				m.closeList.Store(n.Point, n)
+
+				//  按照f(n)将OPEN表中的节点排序; //实际上是比较OPEN表内节点f的大小，从最小路径的节点向下进行。
+				// 这里每次提取最小节点是循环找的，不用排序
 			}
-
-			_, cexist := m.closeList.Load(x.Point)
-			if cexist { // X in CLOSE
-				// 已经不用处理了， 继续下一个
-				continue
-			}
-
-			if !oexist && !cexist { // X not in both
-				// 把n设置为X的父亲
-				x.Parent = n
-				// 求f(X); 循环进入时已经处理了，这里不用处理
-				// 并将X插入OPEN表中;//还没有排序
-				m.openList.Store(x.Point, x)
-
-			}
-
 		}
-		//  将n节点插入CLOSE表中;
-		m.closeList.Store(n.Point, n)
-
-		//  按照f(n)将OPEN表中的节点排序; //实际上是比较OPEN表内节点f的大小，从最小路径的节点向下进行。
-		// 这里每次提取最小节点是循环找的，不用排序
+		log.Println("FindPath 循环")
 
 	}
 
-	return nil
 }
 
 func (m *AStarMap) getHScore(n, target Point) int {
 	x := AbsInt(n.Col - target.Col)
 	y := AbsInt(n.Row - target.Row)
-	// return x + y
-	return 2 * (x + y)
-	// return x*x + y*y
+
+	if m.HScoreType == 1 {
+		return x + y
+	} else if m.HScoreType == 2 {
+		return x*x + y*y
+	} else { // 默认
+		return 2 * (x + y)
+	}
 }
 
 // AbsInt 取正数的绝对值
