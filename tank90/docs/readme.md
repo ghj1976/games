@@ -12,6 +12,7 @@
     * [源码](https://github.com/shinima/battle-city) 。
     * 网页[演示地址](https://battle-city.js.org/) 。
 
+游戏元素逻辑：[游戏元素逻辑](./tank90.md)
 
 
 
