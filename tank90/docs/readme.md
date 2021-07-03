@@ -1,8 +1,15 @@
 
 
-## 游戏设计参考
+## 坦克大战游戏
 
-游戏设计参考了下面两个：
+
+### 游戏设计
+* [游戏元素逻辑](./tank90.md)
+* [坦克基本功能](./tank.md)，  [玩家设计](./player.md)， [AI坦克](./tankAI.md)
+* [地图元素计算逻辑](./map.md)
+
+### 设计参考
+参考了下面两个坦克大战游戏：
 
 * 玩法、道具设置都是参考的这款游戏:《[坦克1990HD](http://news.4399.com/gonglue/tkyjjl/pingce/m/320629.html)》  
    * [道具详解](http://news.4399.com/gonglue/tkyjjl/xinde/m/320651.html)、[坦克详解](http://news.4399.com/gonglue/tkyjjl/xinde/m/320649.html)。
@@ -12,7 +19,7 @@
     * [源码](https://github.com/shinima/battle-city) 。
     * 网页[演示地址](https://battle-city.js.org/) 。
 
-游戏元素逻辑：[游戏元素逻辑](./tank90.md)
+
 
 
 

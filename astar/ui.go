@@ -12,7 +12,7 @@ type Item struct {
 	Value string // 显示信息
 }
 
-func createUI() (*ebitenui.UI, func(), error) {
+func createUI(currDemoMapType, currHScoreType int) (*ebitenui.UI, func(), error) {
 
 	res, err := newUIResources()
 	if err != nil {
@@ -35,9 +35,10 @@ func createUI() (*ebitenui.UI, func(), error) {
 	rootContainer.AddChild(widget.NewText(
 		widget.TextOpts.Text("地图类型：", res.text.face, res.text.idleColor)))
 
-	rootContainer.AddChild(newListComboButton(
+	demoMapTypeItemArr := []interface{}{Item{Key: 1, Value: "50*50随机地图"}, Item{Key: 2, Value: "26*26坦克大战地图"}, Item{Key: 3, Value: "26*26 U型地图"}}
+	listComboButtonMapType := newListComboButton(
 		// []interface{}{"50*50随机地图", "26*26坦克大战地图", "26*26 U型地图"},
-		[]interface{}{Item{Key: 1, Value: "50*50随机地图"}, Item{Key: 2, Value: "26*26坦克大战地图"}, Item{Key: 3, Value: "26*26 U型地图"}},
+		demoMapTypeItemArr,
 		func(e interface{}) string {
 			log.Printf("111-%s", e.(Item).Value)
 			return e.(Item).Value
@@ -56,14 +57,17 @@ func createUI() (*ebitenui.UI, func(), error) {
 			log.Printf("new %d-%d", CurrDemoMapType, CurrHScoreType)
 			CurrGame.aMap.Reset(CurrDemoMapType, CurrHScoreType)
 		},
-		res))
+		res)
+	listComboButtonMapType.SetSelectedEntry(demoMapTypeItemArr[currDemoMapType-1])
+	rootContainer.AddChild(listComboButtonMapType)
 
 	rootContainer.AddChild(widget.NewText(
 		widget.TextOpts.Text("H计算方式：", res.text.face, res.text.idleColor)))
 
-	rootContainer.AddChild(newListComboButton(
+	hScoreTypeItemArr := []interface{}{Item{Key: 1, Value: "x + y"}, Item{Key: 2, Value: "x*x + y*y"}, Item{Key: 3, Value: "2 * (x + y)"}}
+	listComboButtonHScoreType := newListComboButton(
 		// []interface{}{"x + y", "x*x + y*y", "2 * (x + y)"},
-		[]interface{}{Item{Key: 1, Value: "x + y"}, Item{Key: 2, Value: "x*x + y*y"}, Item{Key: 3, Value: "2 * (x + y)"}},
+		hScoreTypeItemArr,
 		func(e interface{}) string {
 			return e.(Item).Value
 		},
@@ -80,7 +84,9 @@ func createUI() (*ebitenui.UI, func(), error) {
 			log.Printf("new %d-%d", CurrDemoMapType, CurrHScoreType)
 			CurrGame.aMap.Reset(CurrDemoMapType, CurrHScoreType)
 		},
-		res))
+		res)
+	listComboButtonHScoreType.SetSelectedEntry(hScoreTypeItemArr[currHScoreType-1])
+	rootContainer.AddChild(listComboButtonHScoreType)
 
 	ui := &ebitenui.UI{
 		Container: rootContainer,
@@ -108,6 +114,7 @@ func newListComboButton(entries []interface{}, buttonLabel widget.SelectComboBut
 			),
 		),
 		widget.ListComboButtonOpts.Text(res.comboButton.face, res.comboButton.graphic, res.comboButton.text),
+
 		widget.ListComboButtonOpts.ListOpts(
 			widget.ListOpts.Entries(entries),
 			widget.ListOpts.ScrollContainerOpts(
@@ -123,4 +130,5 @@ func newListComboButton(entries []interface{}, buttonLabel widget.SelectComboBut
 		),
 		widget.ListComboButtonOpts.EntryLabelFunc(buttonLabel, entryLabel),
 		widget.ListComboButtonOpts.EntrySelectedHandler(entrySelectedHandler))
+
 }

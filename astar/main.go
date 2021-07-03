@@ -62,7 +62,7 @@ func main() {
 	CurrGame.aMap = Prepare(CurrDemoMapType, CurrHScoreType)
 
 	// 控制界面
-	ui, closeUI, err := createUI()
+	ui, closeUI, err := createUI(CurrDemoMapType, CurrHScoreType)
 	if err != nil {
 		log.Fatal(err)
 	}

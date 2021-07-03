@@ -28,7 +28,8 @@ func GetGameController() *GameController {
 	resources.InitAudio()
 	resources.InitFontFace()
 
-	instance.currPage = "game"
+	// instance.currPage = "game"
+	instance.currPage = "nav"
 	instance.game, _ = tank90.NewGame()
 	instance.nav = NewNavigation()
 	return instance
