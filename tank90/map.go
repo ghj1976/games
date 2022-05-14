@@ -14,10 +14,18 @@ import (
 1、碰撞检测 跟地图没有关系。 而是根据 坦克、子弹、墙 矩形 是否碰撞来判断的。
 2、坦克可运行区域跟地图有关系。
 3、坦克碰到坦克 也属于碰撞检测， 会触发新的行走方向选择。
+
+
+二维动态数组参考：
+https://www.cnblogs.com/ghj1976/p/golang-er-wei-dong-tai-shu-zu-de-ji-ge-li-zi.html
 */
 
 // Map 游戏地图
 type Map struct {
+	row               int     // 行，排
+	col               int     // 列
+	elementCollection [][]int // 地图元素
+
 	mapImageNeedUpdate bool // 地图需要更新
 
 	mapArr   [26][26]int      // 地图， 一个26*26 的二维数组
