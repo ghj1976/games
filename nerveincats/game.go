@@ -122,63 +122,74 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 // Update updates the current game state.
 func (g *Game) Update() error {
-
+	x, y := 0, 0
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 
 		// 按下鼠标左键，判断那个位置要变成障碍物
-		x, y := ebiten.CursorPosition()
-		ccp := fmt.Sprintf("x:%d y:%d", x, y)
-		if g.currCursorPosition == ccp {
-			// 当前位置已经处理过一边了，不用再次处理了。
-			return nil
-		}
-
-		log.Println(fmt.Sprintf("x:%d y:%d", x, y))
-
-		if g.Status == Success || g.Status == Failure {
-			// 这里只要处理 重新玩的按钮逻辑
-			if g.replayBtn.In(x, y) { // 重玩按钮被点击
-				g.Reset()
-			}
-			g.currCursorPosition = ccp
-			return nil
-		}
-
-		log.Println("update IsMouseButtonPressed")
-		// 正常游戏的逻辑
-		q, r := pixelToHex(x, y)
-		key := getKey(q, r)
-		log.Println(key)
-
-		// 算出来的位置超过地图的大小
-		if math.Abs(float64(q)) > float64(mapRadius) {
-			g.currCursorPosition = ccp
-			return nil
-		}
-		if math.Abs(float64(r)) > float64(mapRadius) {
-			g.currCursorPosition = ccp
-			return nil
-		}
-
-		ts, b := g.NMap.TileSet[key]
-		if !b {
-			g.currCursorPosition = ccp
-			return nil
-		}
-		if !ts.IsObstacle {
-			// 设置点的位置为障碍物
-			g.NMap.TileSet[key].Obstacle()
-
-			// 重新计算每个位置的权重
-			g.NMap.CalculateTileRank()
-			g.Step++
-			// 猫随机移动一个位置
-			g.Status = g.NMap.CatRandomMove(g.NCat)
-
-		}
-
-		g.currCursorPosition = ccp
+		x, y = ebiten.CursorPosition()
 	}
+
+	touches := []ebiten.TouchID{}
+	touches = ebiten.AppendTouchIDs(touches[:0])
+	if len(touches) == 1 {
+		x, y = ebiten.TouchPosition(touches[0])
+	}
+
+	if x == 0 && y == 0 {
+		return nil
+	}
+
+	ccp := fmt.Sprintf("x:%d y:%d", x, y)
+	if g.currCursorPosition == ccp {
+		// 当前位置已经处理过一边了，不用再次处理了。
+		return nil
+	}
+
+	log.Printf("x:%d y:%d", x, y)
+
+	if g.Status == Success || g.Status == Failure {
+		// 这里只要处理 重新玩的按钮逻辑
+		if g.replayBtn.In(x, y) { // 重玩按钮被点击
+			g.Reset()
+		}
+		g.currCursorPosition = ccp
+		return nil
+	}
+
+	log.Println("update IsMouseButtonPressed")
+	// 正常游戏的逻辑
+	q, r := pixelToHex(x, y)
+	key := getKey(q, r)
+	log.Println(key)
+
+	// 算出来的位置超过地图的大小
+	if math.Abs(float64(q)) > float64(mapRadius) {
+		g.currCursorPosition = ccp
+		return nil
+	}
+	if math.Abs(float64(r)) > float64(mapRadius) {
+		g.currCursorPosition = ccp
+		return nil
+	}
+
+	ts, b := g.NMap.TileSet[key]
+	if !b {
+		g.currCursorPosition = ccp
+		return nil
+	}
+	if !ts.IsObstacle {
+		// 设置点的位置为障碍物
+		g.NMap.TileSet[key].Obstacle()
+
+		// 重新计算每个位置的权重
+		g.NMap.CalculateTileRank()
+		g.Step++
+		// 猫随机移动一个位置
+		g.Status = g.NMap.CatRandomMove(g.NCat)
+
+	}
+
+	g.currCursorPosition = ccp
 
 	return nil
 }

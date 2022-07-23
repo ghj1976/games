@@ -12,4 +12,7 @@ cd /Users/guohongjun/Documents/MyCodes/mygocodes/src/github.com/ghj1976/games/ne
 
 GOOS=js GOARCH=wasm go build -o nic.wasm 
 
+
+gomobile build -target=android github.com/ghj1976/games/nerveincats/nic
+
 ```

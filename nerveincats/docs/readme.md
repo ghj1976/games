@@ -15,3 +15,8 @@
 **相关技术参考链接**
 * [六角网格大观](https://indienova.com/indie-game-development/hex-grids-reference/)
 
+
+
+## 编译Android版本
+nic 目录下
+gomobile build -target=android github.com/ghj1976/games/nerveincats/nic
