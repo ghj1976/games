@@ -3,6 +3,8 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200222043503-6f7a984d4dc4/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20220320163800-277f93cfa958 h1:TL70PMkdPCt9cRhKTqsm+giRpgrd0IGEj763nNr2VFY=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20220320163800-277f93cfa958/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20220515205805-8da84822faab h1:kHjfI6lLxXDc3lUZWTluOhndVSLKf7yxjngkjblTZzc=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20220515205805-8da84822faab/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/gofrs/flock v0.8.1 h1:+gYjHKf32LDeiEEFhQaotPbLuUXjY5ZqxKgXy7n59aw=
 github.com/gofrs/flock v0.8.1/go.mod h1:F1TvTiK9OcQqauNUHlbJvyl9Qa1QvF/gOUDKA14jxHU=
 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 h1:DACJavvAHhabrF08vX0COfcOBJRhZ8lUbR+ZWIs0Y5g=
@@ -11,6 +13,8 @@ github.com/hajimehoshi/bitmapfont/v2 v2.2.0 h1:E6vzlchynZj6OVohVKFqWkKW348EmDW62
 github.com/hajimehoshi/bitmapfont/v2 v2.2.0/go.mod h1:Llj2wTYXMuCTJEw2ATNIO6HbFPOoBYPs08qLdFAxOsQ=
 github.com/hajimehoshi/ebiten/v2 v2.3.1 h1:1usmOQv+wxeBElKTYiB7UnJaIwx8+FflDfQA729uUr4=
 github.com/hajimehoshi/ebiten/v2 v2.3.1/go.mod h1:MSVpCRgFyOsDA2HWNPEiBz7aOjESNulTWwD31Ud9n5c=
+github.com/hajimehoshi/ebiten/v2 v2.3.2 h1:gUneGTeigULfTd9M4CUilO3lCQ0B1eTcFipaB7xlsFU=
+github.com/hajimehoshi/ebiten/v2 v2.3.2/go.mod h1:MSVpCRgFyOsDA2HWNPEiBz7aOjESNulTWwD31Ud9n5c=
 github.com/hajimehoshi/file2byteslice v0.0.0-20210813153925-5340248a8f41/go.mod h1:CqqAHp7Dk/AqQiwuhV1yT2334qbA/tFWQW0MD2dGqUE=
 github.com/hajimehoshi/go-mp3 v0.3.3/go.mod h1:qMJj/CSDxx6CGHiZeCgbiq2DSUkbK0UbtXShQcnfyMM=
 github.com/hajimehoshi/oto v0.6.1 h1:7cJz/zRQV4aJvMSSRqzN2TImoVVMpE0BCY4nrNJaDOM=

@@ -26,7 +26,7 @@ func getMapByName(mapid int) string {
 	var mapData string
 	err = row.Scan(&mapData)
 	if err != nil {
-		return ""
+		// return ""
 		log.Fatal(err)
 	}
 	return mapData
