@@ -8,9 +8,6 @@ require (
 	github.com/hajimehoshi/ebiten/v2 v2.3.2
 	github.com/jezek/xgb v1.0.1 // indirect
 	github.com/mattn/go-sqlite3 v1.14.13
-	golang.org/x/exp/shiny v0.0.0-20220428152302-39d4317da171 // indirect
-	golang.org/x/image v0.0.0-20220413100746-70e8d0d3baa9
+	golang.org/x/image v0.5.0
 	golang.org/x/mobile v0.0.0-20220504144722-50dca8fc073d // indirect
-	golang.org/x/sync v0.0.0-20220513210516-0976fa681c29 // indirect
-	golang.org/x/sys v0.0.0-20220513210249-45d2b4557a2a // indirect
 )
